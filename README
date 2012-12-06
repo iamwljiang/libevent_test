@@ -1,0 +1,78 @@
+ABOUT PROGRAM:
+libevent_high_connection
+This is only test libevent can hold how much connection,contain client/server
+
+usage:
+run client:
+./tcp_client 'number_of_connection' 'ip'
+if in the same machine don't take 'ip'
+run server:
+./tcp_server
+
+
+libevent_rw_bench
+This is test single thread read/write bench ,
+it only care per second call read/write times,
+lievent_rw_bench contain client/server.
+This program is very same like 'libevent_high_connection' 
+except add some code of read/write.
+
+send/recv data stream(will cost small time,that we need):
+client send "'connection_id' | 'ask' | 'time'"
+server use client data and calcucate new ask = 'ask' * 'connection_id' % time(NULL)
+finished sendback 'ask' to client
+
+
+usage:
+run client:
+./tcp_client 'number_of_connection'
+
+run server:
+./tcp_server 
+
+
+ABOUT TEST RESULT:
+Single thread server ,use two client at other machine test it can hold more than 100,000 connections
+
+Test read/write on same machine if use [10000,15000] connections client and server read/write speed will faster
+if use 50000 connections,speed become slow.
+
+client 50000 
+client result:
+connected:50000,read:1.15 m/s,taotal handles:27192.40 c/s,per conn handles:speed:0.54c/s
+connected:50000,read:1.26 m/s,taotal handles:30000.00 c/s,per conn handles:speed:0.60c/s
+connected:50000,read:1.29 m/s,taotal handles:30648.60 c/s,per conn handles:speed:0.61c/s
+connected:50000,read:1.22 m/s,taotal handles:28906.60 c/s,per conn handles:speed:0.58c/s
+connected:50000,read:1.29 m/s,taotal handles:30723.40 c/s,per conn handles:speed:0.61c/s
+connected:50000,read:1.28 m/s,taotal handles:30370.20 c/s,per conn handles:speed:0.61c/s
+connected:50000,read:1.29 m/s,taotal handles:30588.80 c/s,per conn handles:speed:0.61c/s
+
+server result:
+conntected:50000,read speed:30808.00 c/s,read bytes speed:0.76 m/s
+conntected:50000,read speed:30270.60 c/s,read bytes speed:0.75 m/s
+conntected:50000,read speed:31004.40 c/s,read bytes speed:0.76 m/s
+conntected:50000,read speed:29185.80 c/s,read bytes speed:0.72 m/s
+conntected:50000,read speed:30620.80 c/s,read bytes speed:0.75 m/s
+conntected:50000,read speed:29801.60 c/s,read bytes speed:0.73 m/s
+conntected:50000,read speed:29028.60 c/s,read bytes speed:0.72 m/s
+
+client 15000
+client result:
+connected:15000,read:1.33 m/s,taotal handles:31227.00 c/s,per conn handles:speed:2.08c/s
+connected:15000,read:1.39 m/s,taotal handles:32612.00 c/s,per conn handles:speed:2.17c/s
+connected:15000,read:1.39 m/s,taotal handles:32680.40 c/s,per conn handles:speed:2.18c/s
+connected:15000,read:1.47 m/s,taotal handles:34521.40 c/s,per conn handles:speed:2.30c/s
+connected:15000,read:1.36 m/s,taotal handles:31945.80 c/s,per conn handles:speed:2.13c/s
+connected:15000,read:1.42 m/s,taotal handles:33311.80 c/s,per conn handles:speed:2.22c/s
+connected:15000,read:1.35 m/s,taotal handles:31692.20 c/s,per conn handles:speed:2.11c/s
+connected:15000,read:1.40 m/s,taotal handles:32796.60 c/s,per conn handles:speed:2.19c/s
+
+server result:
+conntected:15000,read speed:33852.40 c/s,read bytes speed:0.82 m/s
+conntected:15000,read speed:33355.20 c/s,read bytes speed:0.81 m/s
+conntected:15000,read speed:32320.20 c/s,read bytes speed:0.79 m/s
+conntected:15000,read speed:31967.80 c/s,read bytes speed:0.78 m/s
+conntected:15000,read speed:32895.80 c/s,read bytes speed:0.80 m/s
+conntected:15000,read speed:31434.80 c/s,read bytes speed:0.76 m/s
+conntected:15000,read speed:30697.20 c/s,read bytes speed:0.75 m/s
+conntected:15000,read speed:32139.80 c/s,read bytes speed:0.78 m/s
